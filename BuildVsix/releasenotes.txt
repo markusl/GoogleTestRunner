@@ -1,0 +1,40 @@
+
+GoogleTest Runner v1.3  -  09/2013
+
+ * Improved error handling
+ * Support GoogleTest 1.7.0 Typed Parameter output from --gtest_list_tests
+ * Microsoft DIA SDK changes:
+   * Not thread safe -> don't do parallel calls
+   * Use and ship DIA SDK v110 (DiaSourceClass 761D3BCD-1304-41D5-94E8-EAC54E4AC172)
+ * Find tests from (anonymous) namespaces
+ * Add some automated tests
+
+GoogleTest Runner v1.0  -  09/2013
+
+ * Supports the discovery of unit tests written using GoogleTest framework in Visual Studio 2012 and Visual Studio 2013
+ * Discovers test methods also from imported dlls (if you implement tests in libfoo.dll, but run them from libfootests.exe), so VS doesn't throw you into RT_MANIFEST
+ * Supports projects whose output matches the regular expression "[Tt]est[s]{0,1}.exe"
+   - The tests are discovered by running a matching executable with flag --gtest_list_tests
+
+Compatibility:
+ * Does not work with GoogleTest Adapter
+     * http://visualstudiogallery.msdn.microsoft.com/f00c0f72-ac71-4c80-bf8b-6fe381548031
+ * ReSharper8 might interfere with GoogleTest Runner in VS2012
+     * https://bugs.launchpad.net/nunit-vs-adapter/+bug/1203587
+     * Go to (VS2012 Tools | Options | ReSharper | Suspend)
+ 
+Technical:
+ * Written in F#
+ * Uses Microsoft DIA SDK to read symbols from .pdb's
+ * Some native calls to read dll imports from main executable
+ * GoogleTest definitions TEST(FooSuite, FooMethod) creates a method named
+    FooSuite_FooMethod_Test::TestBody for actually running the test, this is
+    the one to look for when loading symbols
+ * Test run results are saved to Path.GetTempFileName and read in using Xml Type provider
+ * To debug the unit test adapter
+   - Attach to process vstest.discoveryengine.x86.exe vstest.executionengine.x86.exe
+
+Questions?
+ * Markus Lindqvist <markus.lindqvist@iki.fi>
+
+Tags: gtest, Google Test, GoogleTest, C++ test, C++ unit testing, GoogleTest C++, Unit Test Adapater, Google Test Runner

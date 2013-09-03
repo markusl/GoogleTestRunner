@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="GoogleTestRunner.Lindqvist.bbec4f9a-83fc-496a-9424-5bcfaa63f685" Version="1.3" Language="en-US" Publisher="Markus Lindqvist" />
+    <DisplayName>GoogleTest Runner</DisplayName>
+    <Description xml:space="preserve">Unit Test Runner (Adapter) for Google Test (gtest) unit testing framework.</Description>
+    <MoreInfo>http://code.google.com/p/googletest/</MoreInfo>
+    <ReleaseNotes>releasenotes.txt</ReleaseNotes>
+    <Icon>Package.ico</Icon>
+    <PreviewImage>preview.png</PreviewImage>
+    <Tags>Google Test, GoogleTest, C++ test, C++ unit testing, GoogleTest C++, gtest, Unit Test Adapater, Google Test Runner</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Version="[11.0,13.0)" Id="Microsoft.VisualStudio.Pro" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="4.5" />
+  </Dependencies>
+  <Assets>
+    <Asset d:Source="Project" d:ProjectName="GoogleTestRunner" Type="UnitTestExtension" Path="|GoogleTestRunner|" />
+  </Assets>
+</PackageManifest>

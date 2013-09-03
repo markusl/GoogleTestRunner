@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GoogleTestRunner", "GoogleTestRunner\GoogleTestRunner.fsproj", "{277C587A-81B2-4396-B1F3-B62EF39BB334}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GoogleTestRunnerTests", "GoogleTestRunnerTests\GoogleTestRunnerTests.fsproj", "{7210A4D7-BE67-4A08-B412-DD0AA16899A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildVsix", "BuildVsix\BuildVsix.csproj", "{97C46B25-6EF1-4EB5-B63D-B9B83CCD3E13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{277C587A-81B2-4396-B1F3-B62EF39BB334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277C587A-81B2-4396-B1F3-B62EF39BB334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277C587A-81B2-4396-B1F3-B62EF39BB334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277C587A-81B2-4396-B1F3-B62EF39BB334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7210A4D7-BE67-4A08-B412-DD0AA16899A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7210A4D7-BE67-4A08-B412-DD0AA16899A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7210A4D7-BE67-4A08-B412-DD0AA16899A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7210A4D7-BE67-4A08-B412-DD0AA16899A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C46B25-6EF1-4EB5-B63D-B9B83CCD3E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C46B25-6EF1-4EB5-B63D-B9B83CCD3E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C46B25-6EF1-4EB5-B63D-B9B83CCD3E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C46B25-6EF1-4EB5-B63D-B9B83CCD3E13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
