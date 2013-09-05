@@ -1,4 +1,7 @@
 
+GoogleTest Runner v1.4  -  09/2013
+ * Working directory for running the tests is now the executable directory
+
 GoogleTest Runner v1.3  -  09/2013
 
  * Improved error handling
@@ -9,7 +12,7 @@ GoogleTest Runner v1.3  -  09/2013
  * Find tests from (anonymous) namespaces
  * Add some automated tests
 
-GoogleTest Runner v1.0  -  09/2013
+GoogleTest Runner v1.0  -  08/2013
 
  * Supports the discovery of unit tests written using GoogleTest framework in Visual Studio 2012 and Visual Studio 2013
  * Discovers test methods also from imported dlls (if you implement tests in libfoo.dll, but run them from libfootests.exe), so VS doesn't throw you into RT_MANIFEST

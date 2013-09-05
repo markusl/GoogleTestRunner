@@ -16,21 +16,22 @@ type String() =
 type GoogleTestExecutor() =
     let mutable cancelled = false
 
-    let runOnce (framework : IFrameworkHandle) debug cases executable runAll = 
+    let runOnce (framework : IFrameworkHandle) (runContext : IRunContext) cases executable runAll = 
         let outputPath = IO.Path.GetTempFileName()
         let filter =
             let fqn (c:TestCase) = c.FullyQualifiedName
             if runAll then ""
             else sprintf "--gtest_filter=%s" (String.JoinBy(":", cases, fqn))
         let arguments = (sprintf "--gtest_output=xml:%s %s" outputPath filter)
-
+        
+        let wd = IO.Path.GetDirectoryName executable
         cases |> List.iter framework.RecordStart
-        if debug then
+        if runContext.IsBeingDebugged then
             framework.SendMessage(TestMessageLevel.Informational, "Attaching debugger to " + executable)
-            Process.GetProcessById(framework.LaunchProcessWithDebuggerAttached(executable, Environment.CurrentDirectory, arguments, null)).WaitForExit();
+            Process.GetProcessById(framework.LaunchProcessWithDebuggerAttached(executable, wd, arguments, null)).WaitForExit();
         else
-            framework.SendMessage(TestMessageLevel.Informational, sprintf "Running: %s %s" executable arguments)
-            ProcessUtil.runCommand executable arguments |> ignore
+            framework.SendMessage(TestMessageLevel.Informational, sprintf "In %s, running: %s  %s" wd executable arguments)
+            ProcessUtil.runCommand wd executable arguments |> ignore
         let results = ResultParser.getResults framework outputPath cases
         results |> List.iter framework.RecordResult
 
@@ -39,7 +40,7 @@ type GoogleTestExecutor() =
         for executable, cases in cases do
             if not(cancelled) then
                 try
-                    runOnce framework runContext.IsBeingDebugged (cases |> List.ofSeq) executable runAll
+                    runOnce framework runContext (cases |> List.ofSeq) executable runAll
                 with e ->
                     framework.SendMessage(TestMessageLevel.Error, e.Message)
                     framework.SendMessage(TestMessageLevel.Error, e.StackTrace)

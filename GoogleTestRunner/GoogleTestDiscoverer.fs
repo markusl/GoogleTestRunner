@@ -55,7 +55,7 @@ module DiscovererUtils =
                 LineNumber = snd sourceInfo)
 
     let getTestsFromExecutable (logger:IMessageLogger) executable =
-        let gtestTestList = ProcessUtil.getOutputOfCommand executable Constants.gtestListTests
+        let gtestTestList = ProcessUtil.getOutputOfCommand String.Empty executable Constants.gtestListTests
         let testCases = parseTestCases gtestTestList
         logger.SendMessage(TestMessageLevel.Informational, sprintf "Found %d tests, resolving symbols" (testCases.Length))
         let symbols = getSourceFileLocations executable logger testCases

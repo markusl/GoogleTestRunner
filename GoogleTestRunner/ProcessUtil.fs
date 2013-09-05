@@ -11,14 +11,15 @@ type ProcessUtil() =
             else readTheStreamInner stream ret (stream.ReadLine() :: streamContent)
         List.rev(readTheStreamInner stream ret [])
 
-    static member getOutputOfCommand command param =
+    static member getOutputOfCommand wd command param =
         use ret = Process.Start(ProcessStartInfo(command, param,
                                     RedirectStandardOutput = true,
                                     RedirectStandardError = false,
                                     UseShellExecute = false,
-                                    CreateNoWindow = true))
+                                    CreateNoWindow = true,
+                                    WorkingDirectory = wd))
         (ret.WaitForInputIdle, ret.BeginOutputReadLine) |> ignore
         ProcessUtil.readTheStream ret.StandardOutput ret
 
-    static member runCommand command param =
-        ignore (ProcessUtil.getOutputOfCommand command param)
+    static member runCommand wd command param =
+        ignore (ProcessUtil.getOutputOfCommand wd command param)
