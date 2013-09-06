@@ -4,11 +4,24 @@ open Dia
 open System
 open System.Runtime.InteropServices
 
+type NameSearchOptions =
+    | nsNone               = 0x0u
+    | nsfCaseSensitive     = 0x1u
+    | nsfCaseInsensitive   = 0x2u
+    | nsfFNameExt          = 0x4u
+    | nsfRegularExpression = 0x8u
+    | nsfUndecoratedName   = 0x10u
+
 /// IDiaSession extension
 type IDiaSession with
     /// Find all symbols from session's global scope which are tagged as functions
     member x.findFunctions() =
-         x.findChildren(x.globalScope, SymTagEnum.SymTagFunction, null, 0u)
+         x.findChildren(x.globalScope, SymTagEnum.SymTagFunction, null, uint32 NameSearchOptions.nsNone)
+
+    /// Find all symbols matching from session's global scope which are tagged as functions
+    member x.findFunctionsByRegex(str) =
+        let nsRegularExpression = 9u
+        x.globalScope.findChildren(SymTagEnum.SymTagFunction, str, uint32 NameSearchOptions.nsfRegularExpression)
 
     /// From given symbol enumeration, extract name, section, offset and length
     member x.getSymbolNamesAndAddresses(diaSymbols:IDiaEnumSymbols) =

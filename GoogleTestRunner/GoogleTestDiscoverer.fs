@@ -9,6 +9,7 @@ module Constants =
     [<Literal>]
     let identifierUri = "executor://GoogleTestRunner/v1";
     let gtestListTests = "--gtest_list_tests"
+    let gtestTestBodySignature = "::TestBody"
 
 module DiscovererUtils =
     let isGoogleTestExecutable (logger:IMessageLogger) e =
@@ -32,10 +33,11 @@ module DiscovererUtils =
         snd (tests |> List.fold parseSingleTest ("", List.empty)) |> Array.ofList
         
     /// Gets the GoogleTest function name format!
-    let googleTestCombinedName (testSuite, testMethod) = sprintf "%s_%s_Test::TestBody" testSuite testMethod
+    let googleTestCombinedName (testSuite, testMethod) = sprintf "%s_%s_Test%s" testSuite testMethod Constants.gtestTestBodySignature
     let getSourceFileLocations executable logger (testcases:(string * string) []) =
         let symbols = testcases |> Array.Parallel.map googleTestCombinedName
-        DiaResolver.resolveAllMethods executable symbols logger
+        let symbolFilterString = sprintf "*%s" Constants.gtestTestBodySignature
+        DiaResolver.resolveAllMethods executable symbols symbolFilterString logger
 
     let toTestCase executable logger symbols (testSuite, testMethod) =
         let dn = sprintf "%s.%s" testSuite testMethod

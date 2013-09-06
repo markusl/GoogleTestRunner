@@ -10,12 +10,20 @@ module Array =
         let ySet = set ys
         let notInYSet x = not <| Set.contains x ySet
         Array.filter notInYSet xs
+
+type Path =
+    /// Replaces the file name extension from a full path.
+    static member ReplaceExtension(path, newExtension) =        
+        Path.Combine(Path.GetDirectoryName(path),
+                     Path.GetFileNameWithoutExtension(path))
+            + newExtension
       
-let private findSymbolsFromExecutable (symbols:string[]) (logger:IMessageLogger) executable =
+
+let private findSymbolsFromExecutable symbols symbolFilterString (logger : IMessageLogger) executable =
     let matchSymbol s (f:string, _, _, _) = f.EndsWith(s, StringComparison.Ordinal)
 
     let executableSymbols (session:IDiaSession) executable =
-        let diaSymbols = session.findFunctions()
+        let diaSymbols = session.findFunctionsByRegex symbolFilterString
         try
             session.getSymbolNamesAndAddresses diaSymbols
         finally
@@ -32,28 +40,35 @@ let private findSymbolsFromExecutable (symbols:string[]) (logger:IMessageLogger)
         
     logger.SendMessage(TestMessageLevel.Warning, sprintf "Loading symbols from %s" executable)
 
+    let sw = System.Diagnostics.Stopwatch.StartNew()
     let diaDataSource = DiaSourceClass()
-    let path = sprintf "%s.pdb" (Path.Combine(Path.GetDirectoryName(executable),
-                                                          Path.GetFileNameWithoutExtension(executable)))
+    let path = Path.ReplaceExtension(executable, ".pdb")
 
     DiaMemoryStream(path) |> diaDataSource.loadDataFromIStream
     let diaSession = diaDataSource.openSession()
     try
         let allSymbols = executableSymbols diaSession executable
-        let foundSymbols = symbols
-                            |> Array.choose(fun currentSymbol -> allSymbols |> List.tryFind (matchSymbol currentSymbol))
-        let symbols = foundSymbols |> Array.map(getSourceFileLocation diaSession)
-                                
-        logger.SendMessage(TestMessageLevel.Warning, sprintf "From %s, found %d symbols" executable foundSymbols.Length)
-        symbols
+        let tryFindFromAllSymbols currentSymbol = allSymbols |> List.tryFind (matchSymbol currentSymbol)
+        let foundSymbols = symbols |> Array.Parallel.choose tryFindFromAllSymbols
+        let symbolInfo = foundSymbols |> Array.map(getSourceFileLocation diaSession)
+
+        sw.Stop()                                
+        logger.SendMessage(TestMessageLevel.Warning, sprintf "From %s, found %d symbols in %d ms" executable foundSymbols.Length sw.ElapsedMilliseconds)
+        symbolInfo
     finally
         Native.releaseCom diaSession
         Native.releaseCom diaDataSource
 
 /// Maps given symbols in executable to source file names and lines
-let resolveAllMethods executable (symbols:string[]) (logger:IMessageLogger)  =
+///
+/// executable            The main executable to open to find symbols.
+/// symbols               The symbols to look for
+/// symbolFilterString    Pre-defined filter that is used to filter only relevant functions from DIA SDK.
+///                       Can speed up things dramatically if module contains many symbols.
+/// logger                Debug/info logger.
+let resolveAllMethods executable symbols symbolFilterString (logger:IMessageLogger)  =
     try
-        let foundSymbols = findSymbolsFromExecutable symbols logger executable
+        let foundSymbols = findSymbolsFromExecutable symbols symbolFilterString logger executable
         if foundSymbols.Length <> 0 then foundSymbols
         else
             let parser = Native.PeParser(executable) in
@@ -63,7 +78,7 @@ let resolveAllMethods executable (symbols:string[]) (logger:IMessageLogger)  =
                                     |> Array.ofList
                                     |> Array.map (fun f -> Path.Combine(moduleDirectory, f))
                                     |> Array.filter File.Exists
-                                    |> Array.map (findSymbolsFromExecutable symbols logger)
+                                    |> Array.map (findSymbolsFromExecutable symbols symbolFilterString logger)
             Array.concat foundSymbols
     with
         | :? System.AggregateException as ae -> 
