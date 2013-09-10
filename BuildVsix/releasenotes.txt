@@ -1,4 +1,8 @@
 
+GoogleTest Runner v1.5  -  09/2013
+ * Grouping of tests when running multiple tests from same suite:
+  - Groups "FooSuite.BarTest"; "FooSuite.BazTest" to "FooSuite.*" to make command line shorter when executing tests
+
 GoogleTest Runner v1.4  -  09/2013
  * Working directory for running the tests is now the executable directory
 

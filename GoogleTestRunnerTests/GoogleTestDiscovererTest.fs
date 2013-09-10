@@ -53,7 +53,7 @@ type Logger() =
             printfn "%s" message
 
 [<TestFixture>] 
-type ``GoogleTestDiscoverer`` ()=
+type ``GoogleTestDiscoverer`` () =
     let doTestCase (a:string) (b:string) =
         let fn = sprintf "%s.%s" a b
         let tc = TestCase(fn, Uri("http://none"), "ff.exe")

@@ -50,3 +50,4 @@ type ``Test GoogleTestExecutor`` () =
                     tc.ErrorMessage |> should equal "unknown file\nSEH exception with code 0xc0000005 thrown in the test body."
                     tc.Outcome = TestOutcome.Failed
                 Mock.Verify(<@ handle.RecordResult(is(testIsFailed)) @>, exactly 1)
+                

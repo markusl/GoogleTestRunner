@@ -67,6 +67,7 @@
     <Compile Include="DiaExtension.fs" />
     <Compile Include="DiaResolver.fs" />
     <Compile Include="GoogleTestDiscoverer.fs" />
+    <Compile Include="GoogleTestCommandLine.fs" />
     <Compile Include="GoogleTestExecutor.fs" />
     <None Include="VSPackage.resx" />
   </ItemGroup>

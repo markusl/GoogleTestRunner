@@ -67,6 +67,7 @@
     </Content>
     <Compile Include="GoogleTestExecutorTest.fs" />
     <None Include="packages.config" />
+    <Compile Include="GoogleTestCommandLineTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
