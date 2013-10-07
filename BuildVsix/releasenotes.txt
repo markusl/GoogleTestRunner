@@ -1,4 +1,7 @@
 
+GoogleTest Runner v1.6  -  10/2013
+* XML reports work when output path contains spaces
+
 GoogleTest Runner v1.5  -  09/2013
  * Grouping of tests when running multiple tests from same suite:
   - Groups "FooSuite.BarTest"; "FooSuite.BazTest" to "FooSuite.*" to make command line shorter when executing tests

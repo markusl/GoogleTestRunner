@@ -42,7 +42,8 @@ type GoogleTestCommandLine(runAll, allCases:TestCase list, cases, outputPath) =
             cases |> List.filter(fun case ->
                         not(suitesRunningAllTests |> List.exists (fun i -> i = (case |> testSuiteNameFromCase))))
         String.JoinBy(":", fqn, casesNotHavingCommonSuite)
-    let filter =
+    let outputPathParameter = sprintf "--gtest_output=\"xml:%s\"" outputPath
+    let filterParameter =
         if runAll then ""
         else sprintf "--gtest_filter=%s%s" filterForSuitesRunningAllTests filterForSuitesRunningIndividualTests
-    member x.GetCommandLine() = (sprintf "--gtest_output=xml:%s %s" outputPath filter)
+    member x.GetCommandLine() = String.Join(" ", [outputPathParameter; filterParameter])

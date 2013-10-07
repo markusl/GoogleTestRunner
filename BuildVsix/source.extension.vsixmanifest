@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="GoogleTestRunner.Lindqvist.bbec4f9a-83fc-496a-9424-5bcfaa63f685" Version="1.5" Language="en-US" Publisher="Markus Lindqvist" />
+    <Identity Id="GoogleTestRunner.Lindqvist.bbec4f9a-83fc-496a-9424-5bcfaa63f685" Version="1.6" Language="en-US" Publisher="Markus Lindqvist" />
     <DisplayName>GoogleTest Runner</DisplayName>
     <Description xml:space="preserve">Unit Test Runner (Adapter) for Google Test (gtest) unit testing framework.</Description>
     <MoreInfo>http://code.google.com/p/googletest/</MoreInfo>
