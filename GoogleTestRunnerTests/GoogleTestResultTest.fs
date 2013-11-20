@@ -27,6 +27,13 @@ type ``GoogleTestResult reads results`` ()=
                 result.Length |> should equal 1
                 result |> List.iter (fun f -> f.Outcome |> should equal TestOutcome.Passed)
 
+    [<Test>] member x.``finds successful parameterized result from sample1`` ()=
+                let result = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/7  # GetParam() = (false, 200, 0)"]
+                result.Length |> should equal 1
+                result |> List.iter (fun f -> 
+                    f.Outcome |> should equal TestOutcome.Passed
+                    f.ErrorMessage |> should equal null)
+
     [<Test>] member x.``finds failure result sample1`` ()=
                 let result = ResultParser.getResults logger sample1 [doTestCase "AnimalsTest" "testGetEnoughAnimals"]
                 result.Length |> should equal 1
@@ -34,6 +41,14 @@ type ``GoogleTestResult reads results`` ()=
                     f.Outcome |> should equal TestOutcome.Failed
                     f.ErrorMessage |> should not' (be Empty)
                 )
+                
+    [<Test>] member x.``finds parameterized failure result sample1`` ()=
+                let result = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/11  # GetParam() = (true, 0, 100)"]
+                result.Length |> should equal 1
+                let f = result.[0]
+                f.Outcome |> should equal TestOutcome.Failed
+                f.ErrorMessage |> should equal ("""someSimpleParameterizedTest.cpp:61
+Expected: (0) != ((pGSD->g_outputs64[(g_nOutput[ 8 ]-1)/64] & g_dnOutput[g_nOutput[ 8 ]])), actual: 0 vs 0""".Replace("\r\n", "\n"))
                 
     [<Test>] member x.``finds successful result from sample2`` ()=
                 let result = ResultParser.getResults logger sample2 [doTestCase "FooTest" "DoesXyz"]
