@@ -4,11 +4,14 @@ open System.IO
 open FSharp.Data
 open Microsoft.VisualStudio.TestPlatform.ObjectModel
 open Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging
-type GoogleTestResult = XmlProvider<"..\data\SampleResult2.xml", Global=true>
+type GoogleTestResult = XmlProvider<"..\data\SampleResult1.xml", Global=true>
 
 /// For reading results from Xml
 module ResultParser =
     let private xmlNotFound = "Output file does not exist, did your tests crash?"
+    
+    let inline isNull< ^a when ^a : not struct> (x:^a) =
+        obj.ReferenceEquals (x, Unchecked.defaultof<_>)
 
     /// Maps given test cases to GoogleTest XML format results loaded from the specific file
     let getResults (logger:IMessageLogger) outputPath testCases =
@@ -27,7 +30,10 @@ module ResultParser =
             logger.SendMessage(TestMessageLevel.Informational, "Opened results from " + outputPath)
 
             let testCaseResultsFlattened = result.GetTestsuites() |> Array.collect (fun f -> f.GetTestcases() |> Array.map(fun result ->
-                (sprintf "%s.%s" result.Classname result.Name,
+                (sprintf "%s.%s" result.Classname result.Name
+//                    (if isNull result.ValueParam then sprintf "%s.%s" result.Classname result.Name
+//                        else sprintf "%s.%s  # GetParam() = %s" result.Classname result.Name result.ValueParam.Value)
+                ,
                     (if result.Status.Equals("run") && not(result.XElement.HasElements) then TestOutcome.Passed
                         else if result.Status.Equals("run") && result.XElement.HasElements then TestOutcome.Failed
                         else if result.Status.Equals("notrun") then TestOutcome.Skipped
@@ -38,7 +44,8 @@ module ResultParser =
                         result.Time)))
 
             let mapTestCaseToResult (tc:TestCase) =
-                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName = testMethod) with
+//                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName = testMethod) with
+                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName.Split(' ').[0] = testMethod) with
                 | Some(testMethod, result, error, time) ->
                     TestResult(tc,
                         ComputerName = System.Environment.MachineName,

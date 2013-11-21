@@ -26,6 +26,39 @@ SecondGoogleTestSuiteName.
   SecondSomething
 """
 
+let gtest170ParameterizedMethods = """ParameterizedTestsTest1/AllEnabledTest.
+  /0  # GetParam() = (false, 0, -100)
+  TestInstance/1  # GetParam() = (false, 0, 0)
+  TestInstance/2  # GetParam() = (false, 0, 100)
+  TestInstance/3  # GetParam() = (false, 100, -100)
+  TestInstance/4  # GetParam() = (false, 100, 0)
+  TestInstance/5  # GetParam() = (false, 100, 100)
+  TestInstance/6  # GetParam() = (false, 200, -100)
+  TestInstance/7  # GetParam() = (false, 200, 0)
+  TestInstance/8  # GetParam() = (false, 200, 100)
+  TestInstance/9  # GetParam() = (true, 0, -100)
+  TestInstance/10  # GetParam() = (true, 0, 0)
+  TestInstance/11  # GetParam() = (true, 0, 100)
+  TestInstance/12  # GetParam() = (true, 100, -100)
+  TestInstance/13  # GetParam() = (true, 100, 0)
+  TestInstance/14  # GetParam() = (true, 100, 100)
+  TestInstance/15  # GetParam() = (true, 200, -100)
+  TestInstance/16  # GetParam() = (true, 200, 0)
+  TestInstance/17  # GetParam() = (true, 200, 100)
+DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest.
+  TestInstance/0  # GetParam() = -100
+  TestInstance/1  # GetParam() = 0
+  TestInstance/2  # GetParam() = 100
+ParameterizedTestsTest3/NameDisabledTest.
+  DISABLED_TestInstance/0  # GetParam() = -100
+  DISABLED_TestInstance/1  # GetParam() = 0
+  DISABLED_TestInstance/2  # GetParam() = 100
+ParameterizedTestsTest4/DISABLED_ClassDisabledTest.
+  TestInstance/0  # GetParam() = -100
+  TestInstance/1  # GetParam() = 0
+  TestInstance/2  # GetParam() = 100
+"""
+
 let gtest170TypedMethods = """
 DisabledTestsTest.
   DISABLED_TestShouldNotRun_1
@@ -78,6 +111,21 @@ type ``GoogleTestDiscoverer`` () =
                 result.[2] |> should equal ("GoogleTestSuiteName1", "TestMethod_007")
                 result.[3] |> should equal ("GoogleTestSuiteName1", "TestMethod_006")
                 result.[4] |> should equal ("GoogleTestSuiteName1", "TestMethod_005")
+
+    [<Test>] member x.``parses test case list from googletest 1.7.0 parameterized output`` () =
+                let result = DiscovererUtils.parseTestCases (gtest170ParameterizedMethods.Split([|'\n'|]) |> List.ofArray)
+                result.Length |> should equal 27
+                result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2  # GetParam() = 100")
+                result.[1] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/1  # GetParam() = 0")
+                result.[2] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/0  # GetParam() = -100")
+                result.[3] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/2  # GetParam() = 100")
+                result.[4] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/1  # GetParam() = 0")
+                result.[5] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/0  # GetParam() = -100")
+                result.[6] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/2  # GetParam() = 100")
+                result.[7] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/1  # GetParam() = 0")
+                result.[8] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/0  # GetParam() = -100")
+                result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17  # GetParam() = (true, 200, 100)")
+                result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16  # GetParam() = (true, 200, 0)")
 
     [<Test>] member x.``parses test case list from googletest 1.7.0 output`` () =
                 let result = DiscovererUtils.parseTestCases (gtest170TypedMethods.Split([|'\n'|]) |> List.ofArray)
