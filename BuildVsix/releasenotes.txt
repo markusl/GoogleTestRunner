@@ -1,4 +1,7 @@
 
+GoogleTest Runner v1.6.1  -  11/2013
+* Special thanks to Bryan Roth for implementing support for GoogleTest 1.7.0 parameterized tests!
+
 GoogleTest Runner v1.6  -  10/2013
 * XML reports work when output path contains spaces
 
@@ -10,7 +13,6 @@ GoogleTest Runner v1.4  -  09/2013
  * Working directory for running the tests is now the executable directory
 
 GoogleTest Runner v1.3  -  09/2013
-
  * Improved error handling
  * Support GoogleTest 1.7.0 Typed Parameter output from --gtest_list_tests
  * Microsoft DIA SDK changes:
@@ -20,7 +22,6 @@ GoogleTest Runner v1.3  -  09/2013
  * Add some automated tests
 
 GoogleTest Runner v1.0  -  08/2013
-
  * Supports the discovery of unit tests written using GoogleTest framework in Visual Studio 2012 and Visual Studio 2013
  * Discovers test methods also from imported dlls (if you implement tests in libfoo.dll, but run them from libfootests.exe), so VS doesn't throw you into RT_MANIFEST
  * Supports projects whose output matches the regular expression "[Tt]est[s]{0,1}.exe"
@@ -32,7 +33,7 @@ Compatibility:
  * ReSharper8 might interfere with GoogleTest Runner in VS2012
      * https://bugs.launchpad.net/nunit-vs-adapter/+bug/1203587
      * Go to (VS2012 Tools | Options | ReSharper | Suspend)
- 
+
 Technical:
  * Written in F#
  * Uses Microsoft DIA SDK to read symbols from .pdb's
@@ -43,6 +44,8 @@ Technical:
  * Test run results are saved to Path.GetTempFileName and read in using Xml Type provider
  * To debug the unit test adapter
    - Attach to process vstest.discoveryengine.x86.exe vstest.executionengine.x86.exe
+ * Uses Visual Studio 2012 SDK
+   - http://www.microsoft.com/en-us/download/details.aspx?id=30668
 
 Questions?
  * Markus Lindqvist <markus.lindqvist@iki.fi>

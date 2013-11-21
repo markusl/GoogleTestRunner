@@ -3,7 +3,8 @@
   <Metadata>
     <Identity Id="GoogleTestRunner.Lindqvist.bbec4f9a-83fc-496a-9424-5bcfaa63f685" Version="1.6.1" Language="en-US" Publisher="Markus Lindqvist" />
     <DisplayName>GoogleTest Runner</DisplayName>
-    <Description xml:space="preserve">Unit Test Runner (Adapter) for Google Test (gtest) unit testing framework.</Description>
+    <Description xml:space="preserve">Visual Studio 2012, Visual Studio 2013 extension for running C++ unit tests written with GoogleTest framework.
+Unit Test Runner (Adapter) for Google Test (gtest) unit testing framework.</Description>
     <MoreInfo>http://code.google.com/p/googletest/</MoreInfo>
     <ReleaseNotes>releasenotes.txt</ReleaseNotes>
     <Icon>Package.ico</Icon>

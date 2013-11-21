@@ -31,8 +31,6 @@ module ResultParser =
 
             let testCaseResultsFlattened = result.GetTestsuites() |> Array.collect (fun f -> f.GetTestcases() |> Array.map(fun result ->
                 (sprintf "%s.%s" result.Classname result.Name
-//                    (if isNull result.ValueParam then sprintf "%s.%s" result.Classname result.Name
-//                        else sprintf "%s.%s  # GetParam() = %s" result.Classname result.Name result.ValueParam.Value)
                 ,
                     (if result.Status.Equals("run") && not(result.XElement.HasElements) then TestOutcome.Passed
                         else if result.Status.Equals("run") && result.XElement.HasElements then TestOutcome.Failed
@@ -44,7 +42,6 @@ module ResultParser =
                         result.Time)))
 
             let mapTestCaseToResult (tc:TestCase) =
-//                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName = testMethod) with
                 match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName.Split(' ').[0] = testMethod) with
                 | Some(testMethod, result, error, time) ->
                     TestResult(tc,
