@@ -2,13 +2,12 @@
 open System
 open System.Diagnostics
 open FsUnit
-open NUnit.Framework
+open Microsoft.VisualStudio.TestTools.UnitTesting
 
-[<TestFixture>] 
 type ``Test PeParser`` ()=
     let path = @"kernel32.dll"
 
-    [<Test>]
+    [<TestMethod>]
     member x.``read imports`` ()=
         let pe = Native.PeParser(path)
         let imports = pe.Imports()

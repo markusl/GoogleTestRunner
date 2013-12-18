@@ -2,7 +2,7 @@
 open GoogleTestRunner
 open System
 open FsUnit
-open NUnit.Framework
+open Microsoft.VisualStudio.TestTools.UnitTesting
 open Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging
 open Microsoft.VisualStudio.TestPlatform.ObjectModel
 
@@ -85,14 +85,14 @@ type Logger() =
         override x.SendMessage(level, message) =
             printfn "%s" message
 
-[<TestFixture>] 
+[<TestClass>]
 type ``GoogleTestDiscoverer`` () =
     let doTestCase (a:string) (b:string) =
         let fn = sprintf "%s.%s" a b
         let tc = TestCase(fn, Uri("http://none"), "ff.exe")
         tc
         
-    [<Test>] member x.``matches test executable name`` () =
+    [<TestMethod>] member x.``matches test executable name`` () =
                 let isGtest = DiscovererUtils.isGoogleTestExecutable (Logger())
                 isGtest "MyGoogleTests.exe" |> should be True
                 isGtest "MyGoogleTest.exe" |> should be True
@@ -103,7 +103,7 @@ type ``GoogleTestDiscoverer`` () =
                 isGtest "TestStuff.exe" |> should be False
                 isGtest "TestLibrary.exe" |> should be False
     
-    [<Test>] member x.``parses test case list`` () =
+    [<TestMethod>] member x.``parses test case list`` () =
                 let result = DiscovererUtils.parseTestCases (gtestBasicMethods.Split([|'\n'|]) |> List.ofArray)
                 result.Length |> should equal 9
                 result.[0] |> should equal ("SecondGoogleTestSuiteName", "SecondSomething")
@@ -112,7 +112,7 @@ type ``GoogleTestDiscoverer`` () =
                 result.[3] |> should equal ("GoogleTestSuiteName1", "TestMethod_006")
                 result.[4] |> should equal ("GoogleTestSuiteName1", "TestMethod_005")
 
-    [<Test>] member x.``parses test case list from googletest 1.7.0 parameterized output`` () =
+    [<TestMethod>] member x.``parses test case list from googletest 1.7.0 parameterized output`` () =
                 let result = DiscovererUtils.parseTestCases (gtest170ParameterizedMethods.Split([|'\n'|]) |> List.ofArray)
                 result.Length |> should equal 27
                 result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2  # GetParam() = 100")
@@ -127,7 +127,7 @@ type ``GoogleTestDiscoverer`` () =
                 result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17  # GetParam() = (true, 200, 100)")
                 result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16  # GetParam() = (true, 200, 0)")
 
-    [<Test>] member x.``parses test case list from googletest 1.7.0 output`` () =
+    [<TestMethod>] member x.``parses test case list from googletest 1.7.0 output`` () =
                 let result = DiscovererUtils.parseTestCases (gtest170TypedMethods.Split([|'\n'|]) |> List.ofArray)
                 result.Length |> should equal 10
                 result.[0] |> should equal ("My/DISABLED_TypedTestP/1", "ShouldNotRun")
@@ -146,10 +146,10 @@ type ``GoogleTestDiscoverer`` () =
                 tests.[0].LineNumber |> should equal 45
                 tests.[1].LineNumber |> should equal 36
                 
-    [<Test>] member x.``finds tests from statically linked x86 executable with source file locations`` () =
+    [<TestMethod>] member x.``finds tests from statically linked x86 executable with source file locations`` () =
                 x.``finds tests from statically linked executable with source file locations`` x86staticallyLinkedTests
 
-    [<Test>] member x.``finds tests from statically linked x64 executable with source file locations`` () =
+    [<TestMethod>] member x.``finds tests from statically linked x64 executable with source file locations`` () =
                 x.``finds tests from statically linked executable with source file locations`` x64staticallyLinkedTests
                 
     member x.``finds tests from externally linked executable with source file locations`` (location) =
@@ -162,8 +162,8 @@ type ``GoogleTestDiscoverer`` () =
                 tests.[0].LineNumber |> should equal 44
                 tests.[1].LineNumber |> should equal 36
                 
-    [<Test>] member x.``finds tests from externally linked x86 executable with source file locations`` () =
+    [<TestMethod>] member x.``finds tests from externally linked x86 executable with source file locations`` () =
                 x.``finds tests from externally linked executable with source file locations`` x86externallyLinkedTests
 
-    [<Test>] member x.``finds tests from externally linked x64 executable with source file locations`` () =
+    [<TestMethod>] member x.``finds tests from externally linked x64 executable with source file locations`` () =
                 x.``finds tests from externally linked executable with source file locations`` x64externallyLinkedTests
