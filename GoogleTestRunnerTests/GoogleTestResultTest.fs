@@ -28,34 +28,33 @@ type ``GoogleTestResult reads results`` ()=
                     result |> List.iter (fun f -> f.Outcome |> should equal TestOutcome.Passed)
 
     [<TestMethod>] member x.``finds successful parameterized result from sample1`` ()=
-                    let result = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/7  # GetParam() = (false, 200, 0)"]
-                    result.Length |> should equal 1
-                    result |> List.iter (fun f -> 
-                        f.Outcome |> should equal TestOutcome.Passed
-                        f.ErrorMessage |> should equal null)
+                    let results = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/7  # GetParam() = (false, 200, 0)"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Passed
+                    result.ErrorMessage |> should be Null
 
     [<TestMethod>] member x.``finds failure result sample1`` ()=
-                    let result = ResultParser.getResults logger sample1 [doTestCase "AnimalsTest" "testGetEnoughAnimals"]
-                    result.Length |> should equal 1
-                    result |> List.iter (fun f ->
-                        f.Outcome |> should equal TestOutcome.Failed
-                        f.ErrorMessage |> should not' (equal EmptyString)
-                    )
+                    let results = ResultParser.getResults logger sample1 [doTestCase "AnimalsTest" "testGetEnoughAnimals"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Failed
+                    result.ErrorMessage |> should not' (equal EmptyString)
                 
     [<TestMethod>] member x.``finds parameterized failure result sample1`` ()=
-                    let result = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/11  # GetParam() = (true, 0, 100)"]
-                    result.Length |> should equal 1
-                    let f = result.[0]
-                    f.Outcome |> should equal TestOutcome.Failed
-                    f.ErrorMessage |> should equal ("""someSimpleParameterizedTest.cpp:61
+                    let results = ResultParser.getResults logger sample1 [doTestCase "ParameterizedTestsTest1/AllEnabledTest" "TestInstance/11  # GetParam() = (true, 0, 100)"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Failed
+                    result.ErrorMessage |> should equal ("""someSimpleParameterizedTest.cpp:61
 Expected: (0) != ((pGSD->g_outputs64[(g_nOutput[ 8 ]-1)/64] & g_dnOutput[g_nOutput[ 8 ]])), actual: 0 vs 0""".Replace("\r\n", "\n"))
                 
     [<TestMethod>] member x.``finds successful result from sample2`` ()=
-                    let result = ResultParser.getResults logger sample2 [doTestCase "FooTest" "DoesXyz"]
-                    result.Length |> should equal 1
-                    result |> List.iter (fun f ->
-                        f.Outcome |> should equal TestOutcome.Passed
-                        f.ErrorMessage |> should equal null)
+                    let results = ResultParser.getResults logger sample2 [doTestCase "FooTest" "DoesXyz"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Passed
+                    result.ErrorMessage |> should be Null
 
     [<TestMethod>] member x.``finds failure result sample2`` ()=
                     let result = ResultParser.getResults logger sample2 [doTestCase "FooTest" "MethodBarDoesAbc"]
