@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GoogleTestRunner", "GoogleTestRunner\GoogleTestRunner.fsproj", "{277C587A-81B2-4396-B1F3-B62EF39BB334}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GoogleTestRunnerTests", "GoogleTestRunnerTests\GoogleTestRunnerTests.fsproj", "{7210A4D7-BE67-4A08-B412-DD0AA16899A2}"
