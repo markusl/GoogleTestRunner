@@ -7,7 +7,10 @@ open Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging
 type ProcessUtil() =
     static member readTheStream (stream : StreamReader) (ret : Process) = 
         let rec readTheStreamInner (stream : StreamReader) (ret : Process) streamContent =
-            if stream.EndOfStream && ret.HasExited then streamContent
+            if stream.EndOfStream && ret.HasExited then
+                if ret.ExitCode <> 0 then
+                    failwith <| (sprintf "Process exited with code %d" ret.ExitCode)
+                streamContent
             else readTheStreamInner stream ret (stream.ReadLine() :: streamContent)
         List.rev(readTheStreamInner stream ret [])
 

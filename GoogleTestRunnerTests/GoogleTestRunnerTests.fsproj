@@ -79,6 +79,7 @@
     <Compile Include="GoogleTestCommandLineTest.fs" />
     <None Include="packages.config" />
     <None Include="Foq.Usage.fsx" />
+    <Compile Include="ProcessUtilTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Foq">
