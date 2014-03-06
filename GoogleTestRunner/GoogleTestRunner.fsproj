@@ -108,8 +108,8 @@
       <HintPath>..\lib\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="msdia110typelib_clr0200">
-      <HintPath>..\lib\msdia110typelib_clr0200.dll</HintPath>
+    <Reference Include="msdia120typelib_clr0200">
+      <HintPath>..\lib\msdia120typelib_clr0200.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
