@@ -93,77 +93,77 @@ type ``GoogleTestDiscoverer`` () =
         tc
         
     [<TestMethod>] member x.``matches test executable name`` () =
-                let isGtest = DiscovererUtils.isGoogleTestExecutable (Logger())
-                isGtest "MyGoogleTests.exe" |> should be True
-                isGtest "MyGoogleTest.exe" |> should be True
-                isGtest "mygoogletests.exe" |> should be True
-                isGtest "mygoogletest.exe" |> should be True
-                isGtest "MyGoogleTes.exe" |> should be False
-                isGtest "TotallyWrong.exe" |> should be False
-                isGtest "TestStuff.exe" |> should be False
-                isGtest "TestLibrary.exe" |> should be False
+                    let isGtest = DiscovererUtils.isGoogleTestExecutable (Logger())
+                    isGtest "MyGoogleTests.exe" |> should be True
+                    isGtest "MyGoogleTest.exe" |> should be True
+                    isGtest "mygoogletests.exe" |> should be True
+                    isGtest "mygoogletest.exe" |> should be True
+                    isGtest "MyGoogleTes.exe" |> should be False
+                    isGtest "TotallyWrong.exe" |> should be False
+                    isGtest "TestStuff.exe" |> should be False
+                    isGtest "TestLibrary.exe" |> should be False
     
     [<TestMethod>] member x.``parses test case list`` () =
-                let result = DiscovererUtils.parseTestCases (gtestBasicMethods.Split([|'\n'|]) |> List.ofArray)
-                result.Length |> should equal 9
-                result.[0] |> should equal ("SecondGoogleTestSuiteName", "SecondSomething")
-                result.[1] |> should equal ("SecondGoogleTestSuiteName", "FirstTestMethodName")
-                result.[2] |> should equal ("GoogleTestSuiteName1", "TestMethod_007")
-                result.[3] |> should equal ("GoogleTestSuiteName1", "TestMethod_006")
-                result.[4] |> should equal ("GoogleTestSuiteName1", "TestMethod_005")
+                    let result = DiscovererUtils.parseTestCases (gtestBasicMethods.Split([|'\n'|]) |> List.ofArray)
+                    result.Length |> should equal 9
+                    result.[0] |> should equal ("SecondGoogleTestSuiteName", "SecondSomething")
+                    result.[1] |> should equal ("SecondGoogleTestSuiteName", "FirstTestMethodName")
+                    result.[2] |> should equal ("GoogleTestSuiteName1", "TestMethod_007")
+                    result.[3] |> should equal ("GoogleTestSuiteName1", "TestMethod_006")
+                    result.[4] |> should equal ("GoogleTestSuiteName1", "TestMethod_005")
 
     [<TestMethod>] member x.``parses test case list from googletest 1.7.0 parameterized output`` () =
-                let result = DiscovererUtils.parseTestCases (gtest170ParameterizedMethods.Split([|'\n'|]) |> List.ofArray)
-                result.Length |> should equal 27
-                result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2  # GetParam() = 100")
-                result.[1] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/1  # GetParam() = 0")
-                result.[2] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/0  # GetParam() = -100")
-                result.[3] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/2  # GetParam() = 100")
-                result.[4] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/1  # GetParam() = 0")
-                result.[5] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/0  # GetParam() = -100")
-                result.[6] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/2  # GetParam() = 100")
-                result.[7] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/1  # GetParam() = 0")
-                result.[8] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/0  # GetParam() = -100")
-                result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17  # GetParam() = (true, 200, 100)")
-                result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16  # GetParam() = (true, 200, 0)")
+                    let result = DiscovererUtils.parseTestCases (gtest170ParameterizedMethods.Split([|'\n'|]) |> List.ofArray)
+                    result.Length |> should equal 27
+                    result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2  # GetParam() = 100")
+                    result.[1] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/1  # GetParam() = 0")
+                    result.[2] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/0  # GetParam() = -100")
+                    result.[3] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/2  # GetParam() = 100")
+                    result.[4] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/1  # GetParam() = 0")
+                    result.[5] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/0  # GetParam() = -100")
+                    result.[6] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/2  # GetParam() = 100")
+                    result.[7] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/1  # GetParam() = 0")
+                    result.[8] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/0  # GetParam() = -100")
+                    result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17  # GetParam() = (true, 200, 100)")
+                    result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16  # GetParam() = (true, 200, 0)")
 
     [<TestMethod>] member x.``parses test case list from googletest 1.7.0 output`` () =
-                let result = DiscovererUtils.parseTestCases (gtest170TypedMethods.Split([|'\n'|]) |> List.ofArray)
-                result.Length |> should equal 10
-                result.[0] |> should equal ("My/DISABLED_TypedTestP/1", "ShouldNotRun")
-                result.[1] |> should equal ("My/DISABLED_TypedTestP/0", "ShouldNotRun")
-                result.[2] |> should equal ("My/TypedTestP/1", "DISABLED_ShouldNotRun")
-                result.[3] |> should equal ("My/TypedTestP/0", "DISABLED_ShouldNotRun")
-                result.[4] |> should equal ("DISABLED_TypedTest/1", "ShouldNotRun")
+                    let result = DiscovererUtils.parseTestCases (gtest170TypedMethods.Split([|'\n'|]) |> List.ofArray)
+                    result.Length |> should equal 10
+                    result.[0] |> should equal ("My/DISABLED_TypedTestP/1", "ShouldNotRun")
+                    result.[1] |> should equal ("My/DISABLED_TypedTestP/0", "ShouldNotRun")
+                    result.[2] |> should equal ("My/TypedTestP/1", "DISABLED_ShouldNotRun")
+                    result.[3] |> should equal ("My/TypedTestP/0", "DISABLED_ShouldNotRun")
+                    result.[4] |> should equal ("DISABLED_TypedTest/1", "ShouldNotRun")
                 
-    member x.``finds tests from statically linked executable with source file locations`` (location) =
-                let tests = DiscovererUtils.getTestsFromExecutable (Logger()) location
-                tests.Length |> should equal 2
-                tests.[0].DisplayName |> should equal "FooTest.DoesXyz"
-                tests.[1].DisplayName |> should equal "FooTest.MethodBarDoesAbc"
-                tests.[0].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\staticallylinkedgoogletests\main.cpp"
-                tests.[1].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\staticallylinkedgoogletests\main.cpp"
-                tests.[0].LineNumber |> should equal 45
-                tests.[1].LineNumber |> should equal 36
+    [<TestMethod>] member x.``finds tests from statically linked executable with source file locations`` (location) =
+                    let tests = DiscovererUtils.getTestsFromExecutable (Logger()) location
+                    tests.Length |> should equal 2
+                    tests.[0].DisplayName |> should equal "FooTest.DoesXyz"
+                    tests.[1].DisplayName |> should equal "FooTest.MethodBarDoesAbc"
+                    tests.[0].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\staticallylinkedgoogletests\main.cpp"
+                    tests.[1].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\staticallylinkedgoogletests\main.cpp"
+                    tests.[0].LineNumber |> should equal 45
+                    tests.[1].LineNumber |> should equal 36
                 
     [<TestMethod>] member x.``finds tests from statically linked x86 executable with source file locations`` () =
-                x.``finds tests from statically linked executable with source file locations`` x86staticallyLinkedTests
+                    x.``finds tests from statically linked executable with source file locations`` x86staticallyLinkedTests
 
     [<TestMethod>] member x.``finds tests from statically linked x64 executable with source file locations`` () =
-                x.``finds tests from statically linked executable with source file locations`` x64staticallyLinkedTests
+                    x.``finds tests from statically linked executable with source file locations`` x64staticallyLinkedTests
                 
-    member x.``finds tests from externally linked executable with source file locations`` (location) =
-                let tests = DiscovererUtils.getTestsFromExecutable (Logger()) location
-                tests.Length |> should equal 2
-                tests.[0].DisplayName |> should equal "BarTest.DoesXyz"
-                tests.[1].DisplayName |> should equal "BarTest.MethodBarDoesAbc"
-                tests.[0].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\externalgoogletestlibrary\externalgoogletestlibrarytests.cpp"
-                tests.[1].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\externalgoogletestlibrary\externalgoogletestlibrarytests.cpp"
-                tests.[0].LineNumber |> should equal 44
-                tests.[1].LineNumber |> should equal 36
+    [<TestMethod>] member x.``finds tests from externally linked executable with source file locations`` (location) =
+                    let tests = DiscovererUtils.getTestsFromExecutable (Logger()) location
+                    tests.Length |> should equal 2
+                    tests.[0].DisplayName |> should equal "BarTest.DoesXyz"
+                    tests.[1].DisplayName |> should equal "BarTest.MethodBarDoesAbc"
+                    tests.[0].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\externalgoogletestlibrary\externalgoogletestlibrarytests.cpp"
+                    tests.[1].CodeFilePath |> should equal @"c:\prod\gtest-1.7.0\externalgoogletestlibrary\externalgoogletestlibrarytests.cpp"
+                    tests.[0].LineNumber |> should equal 44
+                    tests.[1].LineNumber |> should equal 36
                 
     [<TestMethod>] member x.``finds tests from externally linked x86 executable with source file locations`` () =
-                x.``finds tests from externally linked executable with source file locations`` x86externallyLinkedTests
+                    x.``finds tests from externally linked executable with source file locations`` x86externallyLinkedTests
 
     [<TestMethod>] member x.``finds tests from externally linked x64 executable with source file locations`` () =
-                x.``finds tests from externally linked executable with source file locations`` x64externallyLinkedTests
+                    x.``finds tests from externally linked executable with source file locations`` x64externallyLinkedTests
