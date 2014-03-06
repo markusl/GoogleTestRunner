@@ -1,4 +1,8 @@
 
+GoogleTest Runner v1.7  -  3/2014
+* Real support for Visual Studio 2013. VS2012 installation is not required any more.
+* Fixed a bug reported by Róbert Dávid.
+
 GoogleTest Runner v1.6.1  -  11/2013
 * Special thanks to Bryan Roth for implementing support for GoogleTest 1.7.0 parameterized tests!
 
