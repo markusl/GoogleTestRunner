@@ -19,8 +19,8 @@ Usage
 
 Development
 -------------
-1. Install Microsoft Visual Studio 2012 SDK from http://www.microsoft.com/en-us/download/details.aspx?id=30668
-2. Build & install with VS2012
+1. Install Microsoft Visual Studio 2013 SDK from http://www.microsoft.com/en-us/download/details.aspx?id=40758
+2. Build & install with VS2013
 3. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
 
 Contributors
