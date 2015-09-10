@@ -29,7 +29,7 @@ module ResultParser =
             let result = GoogleTestResult.Parse(File.ReadAllText(outputPath))
             logger.SendMessage(TestMessageLevel.Informational, "Opened results from " + outputPath)
 
-            let testCaseResultsFlattened = result.GetTestsuites() |> Array.collect (fun f -> f.GetTestcases() |> Array.map(fun result ->
+            let testCaseResultsFlattened = result.Testsuites |> Array.collect (fun f -> f.Testcases |> Array.map(fun result ->
                 (sprintf "%s.%s" result.Classname result.Name
                 ,
                     (if result.Status.Equals("run") && not(result.XElement.HasElements) then TestOutcome.Passed
@@ -37,7 +37,7 @@ module ResultParser =
                         else if result.Status.Equals("notrun") then TestOutcome.Skipped
                         else TestOutcome.None),
                     (if result.Status.Equals("run") && result.XElement.HasElements then
-                            String.Join("\n\n", result.GetFailures() |> Array.map (fun f -> f.Value))
+                            String.Join("\n\n", result.Failures |> Array.map (fun f -> f.Value))
                         else null),
                         result.Time)))
 
