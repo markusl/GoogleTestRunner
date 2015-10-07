@@ -10,15 +10,8 @@
     <RootNamespace>GoogleTestRunner</RootNamespace>
     <AssemblyName>GoogleTestRunner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>GoogleTestRunner</Name>
-    <SccProjectName>
-    </SccProjectName>
-    <SccProvider>
-    </SccProvider>
-    <SccAuxPath />
-    <SccLocalPath>
-    </SccLocalPath>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -80,17 +73,14 @@
     <Compile Include="GoogleTestExecutor.fs" />
     <None Include="VSPackage.resx" />
     <None Include="packages.config" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="FSharp.Data">
-      <HintPath>..\lib\FSharp.Data.dll</HintPath>
+    <Reference Include="FSharp.Core, Version=4.3.0.0">
+      <HintPath>..\packages\FSharp.Core.3.1.2.1\lib\net40\FSharp.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FSharp.Data.DesignTime">
-      <HintPath>..\lib\FSharp.Data.DesignTime.dll</HintPath>
-    </Reference>
-    <Reference Include="FSharp.Data.TypeProviders">
-      <HintPath>..\lib\FSharp.Data.TypeProviders.dll</HintPath>
+    <Reference Include="FSharp.Data, Version=2.2.5.0" >
+      <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
       <HintPath>..\lib\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
@@ -112,18 +102,8 @@
       <HintPath>..\lib\msdia120typelib_clr0200.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
