@@ -9,7 +9,7 @@ type GoogleTestResult = XmlProvider<"..\data\SampleResult1.xml", Global=true>
 /// For reading results from Xml
 module ResultParser =
     let private xmlNotFound = "Output file does not exist, did your tests crash?"
-    
+
     let inline isNull< ^a when ^a : not struct> (x:^a) =
         obj.ReferenceEquals (x, Unchecked.defaultof<_>)
 
@@ -29,7 +29,7 @@ module ResultParser =
             let result = GoogleTestResult.Parse(File.ReadAllText(outputPath))
             logger.SendMessage(TestMessageLevel.Informational, "Opened results from " + outputPath)
 
-            let testCaseResultsFlattened = result.GetTestsuites() |> Array.collect (fun f -> f.GetTestcases() |> Array.map(fun result ->
+            let testCaseResultsFlattened = result.Testsuites |> Array.collect (fun f -> f.Testcases |> Array.map(fun result ->
                 (sprintf "%s.%s" result.Classname result.Name
                 ,
                     (if result.Status.Equals("run") && not(result.XElement.HasElements) then TestOutcome.Passed
@@ -37,7 +37,7 @@ module ResultParser =
                         else if result.Status.Equals("notrun") then TestOutcome.Skipped
                         else TestOutcome.None),
                     (if result.Status.Equals("run") && result.XElement.HasElements then
-                            String.Join("\n\n", result.GetFailures() |> Array.map (fun f -> f.Value))
+                            failwith "I am unfamiliar with F#. Please implement this." // TODO: Please implement!
                         else null),
                         result.Time)))
 
