@@ -1,7 +1,7 @@
 GoogleTestRunner
 ================
 
-GoogleTestRunner Visual Studio 2013 extension / unit testing adapter.
+GoogleTestRunner Visual Studio 2013-2015 extension / unit testing adapter.
 
 ![GoogleTestRunner UI](/data/vs_googletestrunner_screenshot.png)
 
@@ -19,10 +19,11 @@ Usage
 
 Development
 -------------
-1. Install Microsoft Visual Studio 2013 SDK from http://www.microsoft.com/en-us/download/details.aspx?id=40758
-2. Build & install with VS2013
+1. Install Microsoft Visual Studio 2015 SDK 
+    * Instructions here https://msdn.microsoft.com/en-us/library/bb166441%28v=vs.140%29.aspx
+2. Build & install with VS2015
 3. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
 
 Contributors
 -------------
-Markus Lindqvist, Bryan Roth
+Markus Lindqvist, Bryan Roth, Veli-Matti Visuri
