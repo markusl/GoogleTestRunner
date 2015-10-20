@@ -28,10 +28,11 @@ Contributing
  
 Development
 -----------
-1. Install Microsoft Visual Studio 2015 SDK 
+1. Install Microsoft Visual Studio 2015 Community
+2. Install Visual Studio Extensibility Tools
     * Instructions here https://msdn.microsoft.com/en-us/library/bb166441%28v=vs.140%29.aspx
-2. Build & install with VS2015
-3. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
+3. Build & install with VS2015
+4. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
 
 Contributors
 -------------
