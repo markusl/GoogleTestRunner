@@ -100,8 +100,8 @@ type ``GoogleTestDiscoverer`` () =
                     isGtest "mygoogletest.exe" |> should be True
                     isGtest "MyGoogleTes.exe" |> should be False
                     isGtest "TotallyWrong.exe" |> should be False
-                    isGtest "TestStuff.exe" |> should be False
-                    isGtest "TestLibrary.exe" |> should be False
+                    isGtest "TestStuff.exe" |> should be True
+                    isGtest "TestLibrary.exe" |> should be True
     
     [<TestMethod>] member x.``parses test case list`` () =
                     let result = DiscovererUtils.parseTestCases (gtestBasicMethods.Split([|'\n'|]) |> List.ofArray)

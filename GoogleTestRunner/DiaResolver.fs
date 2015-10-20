@@ -32,7 +32,7 @@ let private findSymbolsFromExecutable symbols symbolFilterString (logger : IMess
     let getSourceFileLocation (session:IDiaSession) (symbol, addressSection, addressOffset, length) =
         let lineNumbers = session.getLineNumbers(addressSection, addressOffset, length)
         if (lineNumbers |> Seq.length) > 0 then
-            let file, line = lineNumbers |> Seq.nth 0
+            let file, line = lineNumbers |> Seq.item 0
             symbol, (file, line)
         else 
             logger.SendMessage(TestMessageLevel.Error, "Failed to locate line number for " + symbol)
