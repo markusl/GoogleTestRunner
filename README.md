@@ -21,18 +21,9 @@ Contributing
 ------------
 
 1. [Fork](http://help.github.com/fork-a-repo/) GoogleTestRunner.
-2. Create a topic branch off `develop` branch  
-```
-git checkout -b my_branch develop
-```
-3. Make changes, commit 
-```
-git commit -am "My commit message"
-```
-4. Push to your branch
-``` 
-git push origin my_branch
-```
+2. Create a topic branch off `develop` branch - `git checkout -b my_branch develop`
+3. Make changes, commit - `git commit -am "My commit message"`
+4. Push to your branch - `git push origin my_branch`
 5. Create a [Pull Request](http://help.github.com/pull-requests/) from your branch
  
 Development
