@@ -35,5 +35,5 @@ Development
 4. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
 
 Contributors
--------------
-Markus Lindqvist, Bryan Roth, Veli-Matti Visuri
+------------
+Markus Lindqvist, Bryan Roth, Veli-Matti Visuri, Valentin Kantchev
