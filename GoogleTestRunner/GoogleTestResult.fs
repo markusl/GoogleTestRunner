@@ -37,7 +37,7 @@ module ResultParser =
                         else if result.Status.Equals("notrun") then TestOutcome.Skipped
                         else TestOutcome.None),
                     (if result.Status.Equals("run") && result.XElement.HasElements then
-                            failwith "I am unfamiliar with F#. Please implement this." // TODO: Please implement!
+                            String.Join("\n\n", result.Failures |> Array.map (fun f -> f.Value))
                         else null),
                         result.Time)))
 

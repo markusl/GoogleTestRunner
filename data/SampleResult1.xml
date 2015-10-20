@@ -18,6 +18,13 @@ Value of: animals.size()
   Actual: 1
 Expected: 3
 Should get three animals]]></failure>
+      <failure message="x:\prod\company\util\util.cpp:67&#x0A;Value of: animals.size()&#x0A;  Actual: 1&#x0A;Expected: 3&#x0A;Should get three animals" type="">
+        <![CDATA[x:\prod\company\util\util.cpp:67
+Value of: animals.size()
+  Actual: 1
+Expected: 3
+Should get three animals]]>
+      </failure>
     </testcase>
   </testsuite>
   <testsuite name="SimpleTest" tests="2" failures="0" disabled="1" errors="0" time="0">

@@ -13,7 +13,7 @@ module Constants =
 
 module DiscovererUtils =
     let isGoogleTestExecutable (logger:IMessageLogger) e =
-        let executablesAllowed = "[Tt]est[s]{0,1}.exe"
+        let executablesAllowed = "[Tt]est[s]{0,1}.*.exe"
         let matches = Regex.IsMatch(e, executablesAllowed)
         logger.SendMessage(TestMessageLevel.Informational,
             sprintf "GoogleTest: Does %s match %s: %b" e executablesAllowed matches)
