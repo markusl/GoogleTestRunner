@@ -20,19 +20,27 @@ Usage
 Contributing
 ------------
 
-1. [Fork](http://help.github.com/fork-a-repo/) GoogleTestRunner
-2. Create a topic branch - `git checkout -b my_branch`
-3. Make changes, commit
-4. Push to your branch - `git push origin my_branch`
-4. Create a [Pull Request](http://help.github.com/pull-requests/) from your branch
+1. [Fork](http://help.github.com/fork-a-repo/) GoogleTestRunner.
+2. Create a topic branch off `develop` branch  
+```
+git checkout -b my_branch develop
+```
+3. Make changes, commit 
+```
+git commit -am "My commit message"
+```
+4. Push to your branch
+``` 
+git push origin my_branch
+```
+5. Create a [Pull Request](http://help.github.com/pull-requests/) from your branch
  
 Development
 -----------
 1. Install Microsoft Visual Studio 2015 Community
-2. Install Visual Studio Extensibility Tools
-    * Instructions here https://msdn.microsoft.com/en-us/library/bb166441%28v=vs.140%29.aspx
-3. Build & install with VS2015
-4. To debug the unit test adapter, attach to process vstest.discoveryengine.x86.exe or vstest.executionengine.x86.exe
+2. Install [Visual Studio Extensibility Tools](https://msdn.microsoft.com/en-us/library/bb166441%28v=vs.140%29.aspx)
+3. Build & test with Visual Studio 2015
+4. To debug the unit test adapter, attach to process `vstest.discoveryengine.x86.exe` or `vstest.executionengine.x86.exe`
 
 Contributors
 ------------
