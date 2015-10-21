@@ -1,6 +1,8 @@
 
 GoogleTest Runner v1.8    -  10/2015
 * Support for Visual Studio 2015
+* Enable discovery of executables with suffixes 
+* Deployment: Refer to correct version of FSharp.Core (v 4.4.0 which is shipped with VS2015).
 
 GoogleTest Runner v1.7.1  -  4/2014
 * Deployment: Refer to correct version of FSharp.Core (v 4.3.1 which is shipped with VS2013). Thanks mthierba.
