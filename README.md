@@ -1,7 +1,7 @@
 GoogleTestRunner
 ================
 
-GoogleTestRunner Visual Studio 2013-2015 extension / unit testing adapter.
+GoogleTestRunner Visual Studio 2015 extension / unit testing adapter.
 
 ![GoogleTestRunner UI](/data/vs_googletestrunner_screenshot.png)
 
