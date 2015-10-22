@@ -8,7 +8,7 @@ GoogleTestRunner Visual Studio 2015 extension / unit testing adapter.
 
 Installation
 ------------
-1. Download software installer from http://visualstudiogallery.msdn.microsoft.com/9dd47c21-97a6-4369-b326-c562678066f0
+1. Download software installer from [Visual Studio Gallery](https://visualstudiogallery.msdn.microsoft.com/cbd1a9b2-790b-4d49-905f-d128ca21d3fb)
 
 Usage
 -----
