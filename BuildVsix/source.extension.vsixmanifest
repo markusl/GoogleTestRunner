@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="GoogleTestRunner.Lindqvist.bbec4f9a-83fc-496a-9424-5bcfaa63f685" Version="1.8.0" Language="en-US" Publisher="Markus Lindqvist" />
-    <DisplayName>GoogleTest Runner</DisplayName>
+    <Identity Id="GoogleTestRunner.2015.c05122ac-10d8-485b-b9d9-0c848a5934d1" Version="1.8.1" Language="en-US" Publisher="Valentin Kantchev" />
+    <DisplayName>GoogleTest Runner for Visual Studio 2015</DisplayName>
     <Description xml:space="preserve">Visual Studio 2015 extension for running C++ unit tests written with GoogleTest framework.
 Unit Test Runner (Adapter) for Google Test (gtest) unit testing framework.</Description>
     <MoreInfo>http://code.google.com/p/googletest/</MoreInfo>
