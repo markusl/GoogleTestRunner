@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="39" failures="3" disabled="10" errors="0" timestamp="2013-08-14T17:44:14" time="0.844" name="AllTests">
+<testsuites tests="47" failures="6" disabled="12" errors="0" timestamp="2013-08-14T17:44:14" time="0.844" name="AllTests">
   <testsuite name="GoogleTestSuiteName1" tests="7" failures="0" disabled="0" errors="0" time="0.001">
     <testcase name="TestMethod_001" status="run" time="0" classname="GoogleTestSuiteName1" />
     <testcase name="TestMethod_002" status="run" time="0" classname="GoogleTestSuiteName1" />
@@ -75,5 +75,35 @@ Expected: (0) != ((pGSD->g_outputs64[(g_nOutput[ 8 ]-1)/64] & g_dnOutput[g_nOutp
     <testcase name="TestInstance/0" value_param="-100" status="notrun" time="0" classname="ParameterizedTestsTest4/DISABLED_ClassDisabledTest" />
     <testcase name="TestInstance/1" value_param="0" status="notrun" time="0" classname="ParameterizedTestsTest4/DISABLED_ClassDisabledTest" />
     <testcase name="TestInstance/2" value_param="100" status="notrun" time="0" classname="ParameterizedTestsTest4/DISABLED_ClassDisabledTest" />
+  </testsuite>
+  <testsuite name="SimpleTypeParameterizedTest/0" tests="4" failures="1" disabled="1" errors="0" time="0.021">
+    <testcase name="SimpleTypedTest0" type_param="class FirstType" status="run" time="0.016" classname="SimpleTypeParameterizedTest/0" />
+    <testcase name="DISABLED_SimpleTypedTest1" type_param="class FirstType" status="notrun" time="0" classname="SimpleTypeParameterizedTest/0" />
+    <testcase name="SimpleTypedTest2" type_param="class FirstType" status="run" time="0.001" classname="SimpleTypeParameterizedTest/0" />
+    <testcase name="SimpleTypedTest3" type_param="class FirstType" status="run" time="0.002" classname="SimpleTypeParameterizedTest/0">
+      <failure message="TypeParameterizedTests.cpp:256&#x0A;Expected: TestFunctionX&lt;TypeParam&gt;() doesn&apos;t throw an exception.&#x0A;  Actual: it throws." type="">
+        <![CDATA[TypeParameterizedTests.cpp:256
+Expected: TestFunctionX<TypeParam>() doesn't throw an exception.
+  Actual: it throws.]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="SimpleTypeParameterizedTest/1" tests="4" failures="2" disabled="1" errors="0" time="0.006">
+    <testcase name="SimpleTypedTest0" type_param="class SecondType" status="run" time="0.001" classname="SimpleTypeParameterizedTest/1" />
+    <testcase name="DISABLED_SimpleTypedTest1" type_param="class SecondType" status="notrun" time="0" classname="SimpleTypeParameterizedTest/1" />
+    <testcase name="SimpleTypedTest2" type_param="class SecondType" status="run" time="0.002" classname="SimpleTypeParameterizedTest/1">
+      <failure message="TypeParameterizedTests.cpp:248&#x0A;Expected: TestFunctionY&lt;TypeParam&gt;() doesn&apos;t throw an exception.&#x0A;  Actual: it throws." type="">
+        <![CDATA[TypeParameterizedTests.cpp:248
+Expected: TestFunctionY<TypeParam>() doesn't throw an exception.
+  Actual: it throws.]]>
+      </failure>
+    </testcase>
+    <testcase name="SimpleTypedTest3" type_param="class SecondType" status="run" time="0.001" classname="SimpleTypeParameterizedTest/1">
+      <failure message="TypeParameterizedTests.cpp:256&#x0A;Expected: TestFunctionX&lt;TypeParam&gt;() doesn&apos;t throw an exception.&#x0A;  Actual: it throws." type="">
+        <![CDATA[TypeParameterizedTests.cpp:256
+Expected: TestFunctionX<TypeParam>() doesn't throw an exception.
+  Actual: it throws.]]>
+      </failure>
+    </testcase>
   </testsuite>
 </testsuites>

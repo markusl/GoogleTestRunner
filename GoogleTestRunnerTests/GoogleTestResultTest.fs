@@ -48,6 +48,22 @@ type ``GoogleTestResult reads results`` ()=
                     result.Outcome |> should equal TestOutcome.Failed
                     result.ErrorMessage |> should equal ("""someSimpleParameterizedTest.cpp:61
 Expected: (0) != ((pGSD->g_outputs64[(g_nOutput[ 8 ]-1)/64] & g_dnOutput[g_nOutput[ 8 ]])), actual: 0 vs 0""".Replace("\r\n", "\n"))
+
+    [<TestMethod>] member x.``finds type parameterized failure result sample1`` ()=
+                    let results = ResultParser.getResults logger sample1 [doTestCase "SimpleTypeParameterizedTest/0" "SimpleTypedTest3"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Failed
+                    result.ErrorMessage |> should equal ("""TypeParameterizedTests.cpp:256
+Expected: TestFunctionX<class FirstType>() doesn't throw an exception.
+  Actual: it throws.""".Replace("\r\n", "\n"))
+                
+    [<TestMethod>] member x.``finds type parameterized success result sample1`` ()=
+                    let results = ResultParser.getResults logger sample1 [doTestCase "SimpleTypeParameterizedTest/1" "SimpleTypedTest0"]
+                    results.Length |> should equal 1
+                    let result = results.[0]
+                    result.Outcome |> should equal TestOutcome.Passed
+                    result.ErrorMessage |> should be Null
                 
     [<TestMethod>] member x.``finds successful result from sample2`` ()=
                     let results = ResultParser.getResults logger sample2 [doTestCase "FooTest" "DoesXyz"]

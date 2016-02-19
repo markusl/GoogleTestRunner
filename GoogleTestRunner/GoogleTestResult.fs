@@ -35,23 +35,30 @@ module ResultParser =
                     (if result.Status.Equals("run") && not(result.XElement.HasElements) then TestOutcome.Passed
                         else if result.Status.Equals("run") && result.XElement.HasElements then TestOutcome.Failed
                         else if result.Status.Equals("notrun") then TestOutcome.Skipped
-                        else TestOutcome.None),
+                        else TestOutcome.None)
+                , result.TypeParam
+                ,
                     (if result.Status.Equals("run") && result.XElement.HasElements then
                             String.Join("\n\n", result.Failures |> Array.map (fun f -> f.Value))
                         else null),
                         result.Time)))
 
             let mapTestCaseToResult (tc:TestCase) =
-                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _) -> tc.FullyQualifiedName.Split(' ').[0] = testMethod) with
-                | Some(testMethod, result, error, time) ->
+                match testCaseResultsFlattened |> Array.tryFind(fun (testMethod, _, _, _, _) -> tc.FullyQualifiedName.Split(' ').[0] = testMethod) with
+                | Some(testMethod, result, typeparam, error, time) ->
                     TestResult(tc,
                         ComputerName = System.Environment.MachineName,
                         Outcome = result,
-                        ErrorMessage = error,
+                        ErrorMessage = match error with 
+                                            | null -> null
+                                            | x ->  match typeparam with 
+                                                       | Some x -> error.Replace("<TypeParam>", "<" + typeparam.Value.ToString() + ">")
+                                                       | None -> error
+                        ,
                         Duration = System.TimeSpan.FromMilliseconds(float (time * decimal 1000))
                     )
                 | None ->
-                    logger.SendMessage(TestMessageLevel.Error, sprintf "Coudln't find result for %s" (tc.FullyQualifiedName))
+                    logger.SendMessage(TestMessageLevel.Error, sprintf "Couldn't find result for %s" (tc.FullyQualifiedName))
                     TestResult(tc)
 
             testCases |> Array.ofSeq |> Array.Parallel.map mapTestCaseToResult |> List.ofArray
