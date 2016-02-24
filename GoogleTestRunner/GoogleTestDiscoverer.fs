@@ -9,6 +9,7 @@ module Constants =
     [<Literal>]
     let identifierUri = "executor://GoogleTestRunner/v1";
     let gtestListTests = "--gtest_list_tests"
+    let gtestHelp = "-h"
     let gtestTestBodySignature = "::TestBody"
 
 module DiscovererUtils =
@@ -17,6 +18,13 @@ module DiscovererUtils =
         let matches = Regex.IsMatch(e, executablesAllowed)
         logger.SendMessage(TestMessageLevel.Informational,
             sprintf "GoogleTest: Does %s match %s: %b" e executablesAllowed matches)
+        matches
+
+    let isGoogleTestRunner (logger:IMessageLogger) executable =
+        let gtestOutput = ProcessUtil.getOutputOfCommand(String.Empty, executable, Constants.gtestHelp, true)
+        let matches = Regex.IsMatch(System.String.Concat(gtestOutput), Constants.gtestListTests)
+        logger.SendMessage(TestMessageLevel.Informational,
+            sprintf "GoogleTest: Is %s a Google Testhost: %b" executable matches)
         matches
 
     /// Parses test case names from --gtest_list_tests output. Returns list of (testSuite, testCase)
@@ -68,7 +76,7 @@ module DiscovererUtils =
 type GoogleTestDiscoverer() =
     interface ITestDiscoverer with
         override x.DiscoverTests(executables, discoveryContext, logger, discoverySink) =
-            let googleTestExecutables = executables |> Seq.filter (DiscovererUtils.isGoogleTestExecutable logger)
+            let googleTestExecutables = (executables |> Seq.filter (DiscovererUtils.isGoogleTestExecutable logger)) |> Seq.filter (DiscovererUtils.isGoogleTestRunner logger)
             let sinkAllTestCases logger (discoverySink:ITestCaseDiscoverySink) executable =
                 let googleTestTests = DiscovererUtils.getTestsFromExecutable logger executable
                 googleTestTests |> Array.iter discoverySink.SendTestCase
