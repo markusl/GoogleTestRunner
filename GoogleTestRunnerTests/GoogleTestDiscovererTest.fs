@@ -115,17 +115,19 @@ type ``GoogleTestDiscoverer`` () =
     [<TestMethod>] member x.``parses test case list from googletest 1.7.0 parameterized output`` () =
                     let result = DiscovererUtils.parseTestCases (gtest170ParameterizedMethods.Split([|'\n'|]) |> List.ofArray)
                     result.Length |> should equal 27
-                    result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2  # GetParam() = 100")
-                    result.[1] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/1  # GetParam() = 0")
-                    result.[2] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/0  # GetParam() = -100")
-                    result.[3] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/2  # GetParam() = 100")
-                    result.[4] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/1  # GetParam() = 0")
-                    result.[5] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/0  # GetParam() = -100")
-                    result.[6] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/2  # GetParam() = 100")
-                    result.[7] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/1  # GetParam() = 0")
-                    result.[8] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/0  # GetParam() = -100")
-                    result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17  # GetParam() = (true, 200, 100)")
-                    result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16  # GetParam() = (true, 200, 0)")
+                    result.[0] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/2")
+                    result.[1] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/1")
+                    result.[2] |> should equal ("ParameterizedTestsTest4/DISABLED_ClassDisabledTest", "TestInstance/0")
+                    result.[3] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/2")
+                    result.[4] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/1")
+                    result.[5] |> should equal ("ParameterizedTestsTest3/NameDisabledTest", "DISABLED_TestInstance/0")
+                    result.[6] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/2")
+                    result.[7] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/1")
+                    result.[8] |> should equal ("DISABLED_ParameterizedTestsTest2/InstantiateDisabledTest", "TestInstance/0")
+                    result.[9] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/17")
+                    result.[10] |> should equal ("ParameterizedTestsTest1/AllEnabledTest", "TestInstance/16")
+
+
 
     [<TestMethod>] member x.``parses test case list from googletest 1.7.0 output`` () =
                     let result = DiscovererUtils.parseTestCases (gtest170TypedMethods.Split([|'\n'|]) |> List.ofArray)
