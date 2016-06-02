@@ -42,7 +42,7 @@ let private findSymbolsFromExecutable symbols symbolFilterString (logger : IMess
 
     let sw = System.Diagnostics.Stopwatch.StartNew()
     let diaDataSource = DiaSourceClass()
-    let path = Path.ReplaceExtension(executable, ".pdb")
+    let path = [Path.ReplaceExtension(executable, ".pdb"); executable + ".pdb"] |> Seq.find File.Exists
 
     DiaMemoryStream(path) |> diaDataSource.loadDataFromIStream
     let diaSession = diaDataSource.openSession()
